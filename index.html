@@ -1502,7 +1502,7 @@ const QUESTS = [
   btn.addEventListener('click', () => {
     revealed = !revealed;
     document.body.classList.toggle('revealed', revealed);
-    label.textContent = revealed ? '다시 보기' : '결과 보기';
+    label.textContent = revealed ? '결과 닫기' : '결과 보기';
 
     if (revealed) {
       // sparkle burst over selected + common cards
