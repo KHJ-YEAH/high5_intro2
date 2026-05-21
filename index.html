@@ -536,14 +536,15 @@ body.revealed .reveal-btn .ic { transform: rotate(180deg); }
   position: relative; z-index: 2;
 }
 .qcard .qno {
-  font-family: var(--f-display);
-  font-size: 38px;
+  font-family: var(--f-ko-d);
+  font-weight: 800;
+  font-size: 18px;
   line-height: 1;
   background: linear-gradient(135deg, var(--coral-2), var(--lilac-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  letter-spacing: -.03em;
+  letter-spacing: -.01em;
 }
 .qcard .qmonth {
   text-align: right;
@@ -569,11 +570,11 @@ body.revealed .reveal-btn .ic { transform: rotate(180deg); }
 }
 .qcard .qtheme .ko {
   font-family: var(--f-ko-d);
-  font-weight: 700;
-  font-size: 19px;
+  font-weight: 800;
+  font-size: 30px;
   color: var(--cream);
-  letter-spacing: -.01em;
-  line-height: 1.2;
+  letter-spacing: -.022em;
+  line-height: 1.15;
 }
 .qcard .qtheme .en {
   font-family: var(--f-display);
@@ -581,7 +582,7 @@ body.revealed .reveal-btn .ic { transform: rotate(180deg); }
   font-size: 13px;
   color: var(--lilac-2);
   letter-spacing: -.005em;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 .qcard .qline {
   height: 1px;
@@ -1430,11 +1431,7 @@ const QUESTS = [
         </span>` : ''}
       ${q.common ? `<span class="badge common">✦ 전사공통 · 필수</span>` : ''}
       <div class="qhead">
-        <div class="qno">${q.no}</div>
-        <div class="qmonth">
-          ${q.month}
-          <span class="ko">${q.monthKo}</span>
-        </div>
+        <div class="qno">${q.monthKo}</div>
       </div>
       <div class="qtheme">
         <div class="ko">${q.ko}</div>
