@@ -442,32 +442,90 @@ a { color: inherit; text-decoration: none; }
 }
 .reveal-btn {
   position: relative;
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: 13px 26px;
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 16px 34px;
   border-radius: var(--r-pill);
-  background: rgba(167,139,250,.10);
-  color: var(--cream);
-  border: 1px solid rgba(196,181,253,.45);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: .02em;
-  transition: all .3s ease;
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 50%, var(--sun) 100%);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.28);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .04em;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
   overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 10px 32px rgba(255,107,90,.42),
+    0 2px 8px rgba(252,211,77,.25),
+    inset 0 1px 0 rgba(255,255,255,.35);
+  animation: revealPulse 2.4s ease-in-out infinite;
+}
+.reveal-btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.42) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: revealShine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes revealPulse {
+  0%, 100% {
+    box-shadow:
+      0 10px 32px rgba(255,107,90,.42),
+      0 0 0 0 rgba(255,138,122,.55),
+      inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  50% {
+    box-shadow:
+      0 14px 40px rgba(255,107,90,.55),
+      0 0 0 14px rgba(255,138,122,0),
+      inset 0 1px 0 rgba(255,255,255,.35);
+  }
+}
+@keyframes revealShine {
+  0%        { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(120%); }
 }
 .reveal-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 18px 44px rgba(255,107,90,.6),
+    0 4px 12px rgba(252,211,77,.35),
+    inset 0 1px 0 rgba(255,255,255,.4);
+}
+.reveal-btn:active { transform: translateY(-1px) scale(1.01); }
+.reveal-btn .ic {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.24);
+  display: grid; place-items: center;
+  color: #fff;
+  transition: transform .4s ease;
+}
+/* After reveal: dim down to a quiet "toggle" so the cards take the stage */
+body.revealed .reveal-btn {
+  background: rgba(167,139,250,.10);
+  color: var(--cream);
+  border-color: rgba(196,181,253,.45);
+  font-weight: 700;
+  padding: 13px 26px;
+  font-size: 14px;
+  box-shadow: none;
+  animation: none;
+}
+body.revealed .reveal-btn::before { display: none; }
+body.revealed .reveal-btn:hover {
   background: rgba(167,139,250,.18);
   border-color: rgba(196,181,253,.7);
   transform: translateY(-2px);
+  box-shadow: none;
 }
-.reveal-btn .ic {
+body.revealed .reveal-btn .ic {
   width: 22px; height: 22px;
-  border-radius: 50%;
   background: rgba(196,181,253,.2);
-  display: grid; place-items: center;
   color: var(--lilac-2);
-  transition: transform .4s ease;
+  transform: rotate(180deg);
 }
-body.revealed .reveal-btn .ic { transform: rotate(180deg); }
 
 .reveal-note {
   margin: -22px 0 64px;
@@ -1281,7 +1339,6 @@ body.revealed .team-summary {
       Culture <span class="accent">Quest</span>
     </h1>
     <p class="hero-sub">조직문화 온라인 워크샵</p>
-    <div class="hero-tag">Enjoy every moment.</div>
 
     <div class="hero-meta">
       <div class="m">
@@ -1312,9 +1369,6 @@ body.revealed .team-summary {
 
   <!-- PAGE 2 — QUESTS + REVEAL + STATS + CTA -->
   <section class="page act" id="path" data-screen-label="02 Path">
-    <div class="sec-head">
-      <h2 class="sec-title">The path for <span class="it">your team</span></h2>
-    </div>
 
     <!-- REVEAL BUTTON -->
     <div class="reveal-bar">
@@ -1334,8 +1388,7 @@ body.revealed .team-summary {
     <!-- TEAM SUMMARY (revealed after click) -->
     <div class="team-summary" id="teamSummary">
       <div class="head">
-        <div class="lab">Your Team · Brand Experience</div>
-        <div class="name">우리 팀의 <span class="it">Culture Quest</span></div>
+        <div class="name">우리 조직의 <span class="it">Culture Quest</span></div>
       </div>
       <div class="picks" id="teamPicks"></div>
     </div>
@@ -1382,7 +1435,6 @@ body.revealed .team-summary {
         Are you ready, Quester?
         <span class="star r">✦</span>
       </div>
-      <h3 class="cta-title">Begin your <span class="it">Quest</span></h3>
       <a href="#" class="enter" id="enterBtn">
         <span class="enter-rings"><span></span><span></span></span>
         <span class="enter-inner">
@@ -1475,7 +1527,7 @@ const QUESTS = [
         <div class="br-name">
           ${q.ko}
           <span class="en">${q.en}</span>
-          ${q.selected ? '<span class="tag">우리 팀</span>' : ''}
+          ${q.selected ? '<span class="tag">우리 조직</span>' : ''}
           ${q.common ? '<span class="tag">공통 필수</span>' : ''}
         </div>
         <div class="bar-track">
