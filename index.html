@@ -1435,7 +1435,7 @@ body.revealed .team-summary {
         Are you ready, Quester?
         <span class="star r">✦</span>
       </div>
-      <a href="#" class="enter" id="enterBtn">
+      <a href="https://khj-yeah.github.io/culture_quest3/" class="enter" id="enterBtn">
         <span class="enter-rings"><span></span><span></span></span>
         <span class="enter-inner">
           <span class="en">Quest Entry</span>
@@ -1597,8 +1597,12 @@ const QUESTS = [
 document.getElementById('enterBtn').addEventListener('click', (e) => {
   e.preventDefault();
   const btn = e.currentTarget;
+  const dest = btn.getAttribute('href');
   btn.style.transform = 'scale(.97)';
-  setTimeout(() => { btn.style.transform = ''; }, 180);
+  setTimeout(() => {
+    btn.style.transform = '';
+    if (dest && dest !== '#') window.location.href = dest;
+  }, 180);
 });
 
 // ============================================================
@@ -1738,5 +1742,6 @@ document.getElementById('enterBtn').addEventListener('click', (e) => {
   requestAnimationFrame(tick);
 })();
   </script>
+
 </body>
 </html>
