@@ -358,6 +358,226 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* =========================================================
+   CHAPTER NAV + PANELS (CH.1/CH.2/CH.3 + Target)
+   ========================================================= */
+.ch-chapters {
+  margin: 36px 0 0;
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; align-items: center;
+  animation: fadeUp .7s ease-out .55s both;
+}
+.ch-btn {
+  font-family: var(--f-ko-d);
+  font-size: 13.5px;
+  letter-spacing: .04em;
+  font-weight: 700;
+  color: var(--cream);
+  background: rgba(167,139,250,.12);
+  border: 1px solid rgba(196,181,253,.45);
+  border-radius: 999px;
+  padding: 11px 22px;
+  cursor: pointer;
+  box-shadow:
+    0 6px 18px -8px rgba(167,139,250,.5),
+    inset 0 1px 0 rgba(255,255,255,.10);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.ch-btn:hover, .ch-btn:focus-visible {
+  background: rgba(167,139,250,.24);
+  border-color: rgba(196,181,253,.85);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 26px -8px rgba(167,139,250,.7),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  outline: none;
+}
+.ch-btn.active {
+  background: rgba(167,139,250,.30);
+  border-color: rgba(196,181,253,.95);
+  box-shadow:
+    0 0 0 2px rgba(196,181,253,.25),
+    0 10px 26px -8px rgba(167,139,250,.85),
+    inset 0 1px 0 rgba(255,255,255,.20);
+}
+
+/* Target button: distinguished by warm sun accent */
+.ch-btn.ch-target-btn {
+  background: rgba(252,211,77,.10);
+  border-color: rgba(252,211,77,.50);
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.ch-btn.ch-target-btn:hover, .ch-btn.ch-target-btn:focus-visible {
+  background: rgba(252,211,77,.22);
+  border-color: rgba(252,211,77,.85);
+}
+.ch-btn.ch-target-btn .dot { color: var(--sun); font-size: 7px; line-height: 1; }
+.ch-btn.ch-target-btn .caret { color: var(--sun); font-size: 11px; transition: transform .25s ease; display: inline-block; }
+.ch-btn.ch-target-btn.active .caret { transform: rotate(180deg); }
+.ch-btn.ch-target-btn.active {
+  background: rgba(252,211,77,.26);
+  border-color: rgba(252,211,77,.95);
+  box-shadow:
+    0 0 0 2px rgba(252,211,77,.25),
+    0 10px 26px -8px rgba(252,211,77,.7),
+    inset 0 1px 0 rgba(255,255,255,.20);
+}
+
+/* Panels container */
+.ch-panels {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  margin-top: 4px;
+}
+.ch-panel {
+  width: min(860px, 100%);
+  height: 0;
+  overflow: hidden;
+  transition: height .42s cubic-bezier(.4,0,.2,1);
+}
+.ch-panel-inner {
+  margin-top: 16px;
+  padding: 22px 24px 24px;
+  background: rgba(20,15,40,.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(196,181,253,.30);
+  border-radius: 14px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .32s .08s ease, transform .32s .08s ease;
+  box-shadow: 0 30px 60px -30px rgba(167,139,250,.35);
+}
+.ch-panel.open .ch-panel-inner { opacity: 1; transform: translateY(0); }
+.ch-panel#ch-panel-target .ch-panel-inner {
+  border-color: rgba(252,211,77,.32);
+  box-shadow: 0 30px 60px -30px rgba(252,211,77,.32);
+}
+
+.ch-eyebrow {
+  font-family: var(--f-display);
+  font-size: 11px;
+  letter-spacing: .28em;
+  color: var(--sun);
+  font-weight: 600;
+}
+.ch-ptitle {
+  margin: 6px 0 0;
+  font-family: var(--f-ko-d);
+  font-weight: 800;
+  font-size: 26px;
+  color: var(--cream);
+  letter-spacing: -.015em;
+  line-height: 1.2;
+}
+
+/* CH.1 background body */
+.ch-lead {
+  margin: 16px 0 0;
+  font-family: var(--f-ko-d);
+  font-size: 17.5px; line-height: 1.6;
+  color: var(--cream);
+  font-weight: 600;
+}
+.ch-body {
+  margin: 10px 0 0;
+  font-family: var(--f-ko-d);
+  font-size: 16px; line-height: 1.74;
+  color: rgba(250,246,238,.84);
+}
+.ch-cta {
+  margin: 12px 0 0;
+  font-family: var(--f-ko-d);
+  font-size: 15.5px; line-height: 1.6;
+  color: var(--sun-2);
+  font-weight: 700;
+}
+.ch-meta-box {
+  margin-top: 18px;
+  text-align: center;
+  padding: 12px 14px;
+  border: 1px dashed rgba(196,181,253,.34);
+  border-radius: 6px;
+  font-family: var(--f-ko-d);
+  font-size: 13px;
+  letter-spacing: .02em;
+  color: rgba(250,246,238,.78);
+}
+
+/* CH.2 mechanism steps */
+.ch-steps {
+  margin-top: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  font-family: var(--f-ko-d);
+}
+.ch-step {
+  display: flex; gap: 14px; align-items: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(196,181,253,.22);
+  border-radius: 8px;
+  background: rgba(167,139,250,.04);
+}
+.ch-step-num   { flex-shrink: 0; width: 50px; text-align: center; }
+.ch-step-label { font-size: 12px; font-weight: 800; letter-spacing: .04em; color: var(--sun); white-space: nowrap; }
+.ch-step-arrow { font-size: 22px; line-height: 1; color: var(--lilac-2); margin-top: 4px; }
+.ch-step-title { font-size: 16.5px; font-weight: 700; color: var(--cream); }
+.ch-step-sub   { font-size: 15px; color: rgba(250,246,238,.78); margin-top: 5px; line-height: 1.7; }
+
+/* CH.3 reward card */
+.ch-reward-card {
+  margin-top: 18px;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 20px 18px;
+  border: 1px solid rgba(196,181,253,.24);
+  border-radius: 8px;
+  background: rgba(167,139,250,.05);
+  font-family: var(--f-ko-d);
+}
+.ch-reward-row { display: flex; gap: 14px; align-items: flex-start; }
+.ch-p-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral-2), var(--sun));
+  color: #1a1226; font-weight: 800; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ch-icon-box { flex-shrink: 0; width: 28px; text-align: center; font-size: 22px; line-height: 1.2; }
+.ch-reward-text { font-size: 15px; line-height: 1.75; color: rgba(250,246,238,.85); }
+.ch-gold { color: var(--sun-2); font-weight: 800; }
+
+/* Target panel */
+.ch-target-box {
+  margin-top: 14px; padding: 16px 18px;
+  border: 1px solid rgba(252,211,77,.30);
+  border-left: 3px solid var(--sun);
+  border-radius: 6px;
+  background: rgba(252,211,77,.06);
+  font-family: var(--f-ko-d);
+}
+.ch-target-row { font-size: 15px; color: var(--cream); line-height: 1.9; }
+.ch-target-row b { color: var(--sun-2); font-weight: 800; }
+.ch-target-note {
+  margin-top: 10px; padding-top: 11px;
+  border-top: 1px dashed rgba(250,246,238,.18);
+  font-size: 13px; color: rgba(250,246,238,.74); line-height: 1.7;
+}
+
+.ch-dim { color: rgba(250,246,238,.58); }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .ch-chapters { gap: 8px; }
+  .ch-btn { padding: 10px 16px; font-size: 12.5px; }
+  .ch-ptitle { font-size: 22px; }
+  .ch-lead { font-size: 16px; }
+  .ch-body { font-size: 15px; }
+  .ch-step { flex-direction: row; padding: 11px 12px; }
+  .ch-step-title { font-size: 15px; }
+  .ch-step-sub { font-size: 14px; }
+}
+
+/* =========================================================
    PAGE 2 · QUESTS + REVEAL + STATS + CTA
    ========================================================= */
 .act {
@@ -528,14 +748,14 @@ body.revealed .reveal-btn .ic {
 }
 
 .reveal-note {
-  margin: -22px 0 64px;
+  margin: -16px 0 64px;
   text-align: center;
   font-family: var(--f-ko-d);
-  font-size: 12.5px;
-  font-weight: 400;
-  color: var(--mist);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--cream);
   letter-spacing: -.005em;
-  opacity: .82;
+  opacity: .95;
   animation: fadeUp .6s ease-out .35s both;
 }
 
@@ -1355,6 +1575,100 @@ body.revealed .team-summary {
       </div>
     </div>
 
+    <!-- ============ CHAPTER NAV + PANELS ============ -->
+    <div class="ch-chapters">
+      <button class="ch-btn" data-ch="bg" type="button">CH.1 추진 배경</button>
+      <button class="ch-btn" data-ch="mech" type="button">CH.2 핵심 메커니즘</button>
+      <button class="ch-btn" data-ch="reward" type="button">CH.3 활동 보상</button>
+      <button class="ch-btn ch-target-btn" data-ch="target" type="button" aria-expanded="false">
+        <span class="dot" aria-hidden="true">●</span> 대상 조직 <span class="caret" aria-hidden="true">▾</span>
+      </button>
+    </div>
+
+    <div class="ch-panels">
+      <!-- CH.1 추진 배경 -->
+      <div class="ch-panel" id="ch-panel-bg">
+        <div class="ch-panel-inner">
+          <div class="ch-eyebrow">CHAPTER 1 · BACKGROUND</div>
+          <h3 class="ch-ptitle">추진 배경</h3>
+          <p class="ch-lead">우리는 HIGH-5 키워드가 '좋은 조직문화를 위해 갖춰야 할 가치'임을 충분히 알고 있습니다.</p>
+          <p class="ch-body">하지만, 그 가치를 일하는 일상에 실천하기는 쉽지 않죠?<br>우리가 당연히 갖춰야 할 가치들을 일상에서 자유롭고 편안하게 기억하고 실천하기 위해 조직별 「온라인 워크숍」을 시행합니다.</p>
+          <p class="ch-cta">즐겁게 참여해 주시기 바랍니다! 🙌</p>
+          <div class="ch-meta-box">📅 2026. 7 ~ 11월 · 매월 1개 키워드 Open &nbsp;·&nbsp; 👥 전 임직원 대상</div>
+        </div>
+      </div>
+
+      <!-- CH.2 핵심 메커니즘 -->
+      <div class="ch-panel" id="ch-panel-mech">
+        <div class="ch-panel-inner">
+          <div class="ch-eyebrow">CHAPTER 2 · MECHANISM</div>
+          <h3 class="ch-ptitle">핵심 메커니즘</h3>
+          <div class="ch-steps">
+            <div class="ch-step">
+              <div class="ch-step-num"><div class="ch-step-label">Step 1</div><div class="ch-step-arrow">↓</div></div>
+              <div>
+                <div class="ch-step-title">키워드 선택 &amp; 리더 메시지 전달</div>
+                <div class="ch-step-sub">① HIGH-5 키워드 중 조직별 실천할 영역 선택 <span class="ch-dim">(본사팀장·현장소장 6월에 선택 완료)</span><br>② 조직의 리더가 직접 쓴 메시지 전달 <span class="ch-dim">(업무기준, 방향성, 노하우 등)</span></div>
+              </div>
+            </div>
+            <div class="ch-step">
+              <div class="ch-step-num"><div class="ch-step-label">Step 2</div><div class="ch-step-arrow">↓</div></div>
+              <div>
+                <div class="ch-step-title">구성원 토론</div>
+                <div class="ch-step-sub">① 더 나은 업무를 위한 구성원의 개선 제안·아이디어 제시 <span class="ch-dim">(익명)</span><br>② 의견에 대한 공감 수 투표</div>
+              </div>
+            </div>
+            <div class="ch-step">
+              <div class="ch-step-num"><div class="ch-step-label">Step 3</div><div class="ch-step-arrow">↓</div></div>
+              <div>
+                <div class="ch-step-title">그라운드룰 확정</div>
+                <div class="ch-step-sub">① 공감 많은 의견 후보 Top3 선정 및 상세 실천방안 작성<br>② 조직의 그라운드룰 최종 결정 <span class="ch-dim">(본사팀장·현장소장이 선택)</span></div>
+              </div>
+            </div>
+            <div class="ch-step">
+              <div class="ch-step-num"><div class="ch-step-label">Step 4</div></div>
+              <div>
+                <div class="ch-step-title">실천 · 인증</div>
+                <div class="ch-step-sub">일상 업무에서 실제 실천하고 인증샷으로 증명</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CH.3 활동 보상 -->
+      <div class="ch-panel" id="ch-panel-reward">
+        <div class="ch-panel-inner">
+          <div class="ch-eyebrow">CHAPTER 3 · REWARD</div>
+          <h3 class="ch-ptitle">활동 보상</h3>
+          <div class="ch-reward-card">
+            <div class="ch-reward-row">
+              <div class="ch-p-icon" aria-label="포인트">P</div>
+              <div class="ch-reward-text">매달 실천활동에 대한 미션 달성 시 포인트가 쌓입니다.<br><span class="ch-dim">(의견 쓰기 · 공감 누르기 · 키워드 입력 · 게임 클리어 · 출석 등)</span></div>
+            </div>
+            <div class="ch-reward-row">
+              <div class="ch-icon-box" aria-hidden="true">🏆</div>
+              <div class="ch-reward-text"><span class="ch-gold">◆ 우수 활동자</span> : 활동 실적 랭킹 우수자 포상 <span class="ch-dim">(월 기준)</span><br><span class="ch-gold">◆ 우수 활동 조직</span> : 5개월 평균 조직 포인트 우수 본사팀/현장 포상</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대상 조직 -->
+      <div class="ch-panel" id="ch-panel-target">
+        <div class="ch-panel-inner">
+          <div class="ch-eyebrow">TARGET · 참여 대상</div>
+          <h3 class="ch-ptitle">대상 조직</h3>
+          <div class="ch-target-box">
+            <div class="ch-target-row">· 팀원수 <b>4인 이상</b> 본사팀 / 현장</div>
+            <div class="ch-target-row">· 본사팀장 · 현장소장 <b>부재 시 참여 불가</b></div>
+            <div class="ch-target-note">※ 조직인원 변경, 준공임박 등 이슈가 있을 경우 문의 &nbsp;☏ 컬처디자인랩 김현지 책임</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ========== /CHAPTER NAV + PANELS ============ -->
+
     <a href="#path" class="scroll-cue">
       <span class="line"></span>
       Scroll to Begin
@@ -1374,13 +1688,13 @@ body.revealed .team-summary {
     <div class="reveal-bar">
       <div class="label">우리 조직이 진행할 <span class="accent">Culture Quest</span>는?</div>
       <button class="reveal-btn" id="revealBtn">
-        <span class="btn-label">결과 보기</span>
+        <span class="btn-label">실천영역 보기</span>
         <span class="ic">
           <svg viewBox="0 0 12 12" fill="none" width="12" height="12"><path d="M3 4l3 4 3-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </button>
     </div>
-    <p class="reveal-note">※ 선택된 실천 영역은 조직내 리더가 사전에 선택하셨습니다</p>
+    <p class="reveal-note">※ 실천 영역은 본사팀장 · 현장소장님이 사전에 선택하셨습니다</p>
 
     <!-- 5 QUEST CARDS (unified style, reveal-controlled badges) -->
     <div class="qrow" id="qrow"></div>
@@ -1487,7 +1801,6 @@ const QUESTS = [
       </div>
       <div class="qtheme">
         <div class="ko">${q.ko}</div>
-        <div class="en">${q.en}</div>
       </div>
       <div class="qline"></div>
       <div class="keymsg">${q.key.split('\n').map((line, i) => `<div class="${i === 0 ? 'l1' : 'l2 hl'}">${line}</div>`).join('')}</div>
@@ -1526,7 +1839,6 @@ const QUESTS = [
       <div class="br-mid">
         <div class="br-name">
           ${q.ko}
-          <span class="en">${q.en}</span>
           ${q.selected ? '<span class="tag">우리 조직</span>' : ''}
           ${q.common ? '<span class="tag">공통 필수</span>' : ''}
         </div>
@@ -1551,7 +1863,7 @@ const QUESTS = [
   btn.addEventListener('click', () => {
     revealed = !revealed;
     document.body.classList.toggle('revealed', revealed);
-    label.textContent = revealed ? '결과 닫기' : '결과 보기';
+    label.textContent = revealed ? '실천영역 닫기' : '실천영역 보기';
 
     if (revealed) {
       // sparkle burst over selected + common cards
@@ -1740,6 +2052,72 @@ document.getElementById('enterBtn').addEventListener('click', (e) => {
   resize();
   setTimeout(loop, 1200);
   requestAnimationFrame(tick);
+})();
+
+/* ========== CHAPTER PANEL TOGGLE ========== */
+(function(){
+  const PANELS = { bg:'ch-panel-bg', mech:'ch-panel-mech', reward:'ch-panel-reward', target:'ch-panel-target' };
+  const buttons = document.querySelectorAll('.ch-btn');
+  let activeKey = null;
+
+  function closeAll(){
+    Object.values(PANELS).forEach(id => {
+      const wrap = document.getElementById(id);
+      if (!wrap) return;
+      wrap.classList.remove('open');
+      wrap.style.height = '0';
+    });
+    buttons.forEach(b => {
+      b.classList.remove('active');
+      if (b.classList.contains('ch-target-btn')) b.setAttribute('aria-expanded','false');
+    });
+  }
+
+  function open(key){
+    const wrap = document.getElementById(PANELS[key]);
+    if (!wrap) return;
+    const inner = wrap.querySelector('.ch-panel-inner');
+
+    // Mark button active
+    buttons.forEach(b => {
+      if (b.dataset.ch === key) {
+        b.classList.add('active');
+        if (b.classList.contains('ch-target-btn')) b.setAttribute('aria-expanded','true');
+      }
+    });
+
+    wrap.style.height = '0';
+    wrap.classList.add('open');
+    requestAnimationFrame(() => {
+      wrap.style.height = inner.offsetHeight + 'px';
+    });
+
+    // Smooth-scroll the panel into view after open animation
+    setTimeout(() => {
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 440);
+  }
+
+  function toggle(key){
+    if (key === activeKey) {
+      closeAll();
+      activeKey = null;
+      return;
+    }
+    closeAll();
+    activeKey = key;
+    open(key);
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => toggle(b.dataset.ch)));
+
+  // Keep panel height in sync on window resize (in case content reflows)
+  window.addEventListener('resize', () => {
+    if (!activeKey) return;
+    const wrap = document.getElementById(PANELS[activeKey]);
+    const inner = wrap.querySelector('.ch-panel-inner');
+    wrap.style.height = inner.offsetHeight + 'px';
+  });
 })();
   </script>
 
